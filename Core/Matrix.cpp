@@ -15,7 +15,13 @@ namespace Math
     {
         buffer = arg;
     }
-
+    Matrix Matrix::IdentityMatrix(int size)
+    {
+        Matrix result(size, size, 0);
+        for(int i = 0; i < result.Rows(); i++)
+            result[i][i] = 1;
+        return result;
+    }
     //=============================
     //Methods
     //=============================
@@ -26,6 +32,63 @@ namespace Math
     int Matrix::Columns() 
     {
         return buffer[0].size();
+    }
+    float Matrix::Determinator()
+    {
+        int size = Rows();
+        if(size != Columns()) 
+            throw std::invalid_argument("Can't calculate determinator for not sqгare matrix");
+
+        if(size == 2)
+            return  buffer[0][0] * buffer[1][1] - 
+                    buffer[1][0] * buffer[0][1];
+
+        float result = 0;
+        float k = -1;
+
+        Matrix a(*this);
+        for(int i = 0; i < Columns(); i++)
+            result += (k *= -1) * a[0][i] * a.Minor(0, i).Determinator();        
+
+        return result;
+    }
+    Matrix Matrix::Transponse(Matrix a)
+    {
+        Matrix result(a.Columns(), a.Rows());
+
+        for(int i = 0; i < a.Rows(); i++)
+            for(int j = 0; j < a.Columns(); j++)
+                result[j][i] = a[i][j];
+            
+        return result;
+    }
+    Matrix Matrix::Minor(int row, int column)
+    {
+        int rowCount = Rows();
+        int columnCount = Columns();
+
+        if  (row < 0 || row > rowCount || 
+            column < 0 || column > columnCount)
+        throw std::invalid_argument("Can't find minor with those arguments");
+
+        int targetRowCount = rowCount - 1;
+        int targetColumnCount = columnCount - 1;
+        Matrix result(targetRowCount, targetColumnCount);
+
+        int y = 0;
+        for(int i = 0; i < targetRowCount; i++)
+        {
+            if(y == row) y++;
+            int x = 0;
+            for(int j = 0; j < targetColumnCount; j++)
+            {
+                if(x == column) x++;
+                result[i][j] = buffer[y][x];
+                x++;
+            }        
+            y++;
+        }
+        return result;
     }
 
     //=============================
@@ -76,7 +139,7 @@ namespace Math
     void Matrix::operator*= (Matrix b) { *this = *this * b; }
     void Matrix::operator+= (Matrix b) { *this = *this + b; }
     void Matrix::operator-= (Matrix b) { *this = *this - b; }
-    
+
     Matrix Matrix::operator* (float k)
     {
         Matrix r(*this);

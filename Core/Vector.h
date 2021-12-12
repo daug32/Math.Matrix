@@ -1,6 +1,5 @@
 #ifndef MATH_VECTOR_H
 #define MATH_VECTOR_H
-
 #include <vector>
 
 namespace Math

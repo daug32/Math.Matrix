@@ -12,28 +12,16 @@ void prtMatrix(Matrix a) {
 int main()
 {
     Matrix a({
-        {3, 4, 5}, 
-        {9, 2, 4}, 
-        {5, 2, 5}
+        {-1, -4, 0, 0, -2}, 
+        {0, 1, 1, 5, 4}, 
+        {3, 1, 7, 1, 0}, 
+        {0, 0, 2, 0, -3}, 
+        {-1, 0, 4, 2, 2}
     });
     prtMatrix(a);
-    Matrix b({
-        {1, 0, 0}, 
-        {0, 1, 0}, 
-        {0, 0, 1}
-    });
-    prtMatrix(b);
 
-    a = a * b;
-    prtMatrix(a);
-    a = a + b;
-    prtMatrix(a);
-    a = a - b;
-    prtMatrix(a);
-    a *= 10.f;
-    prtMatrix(a);
-    a /= 10.f;
-    prtMatrix(a);
+    auto b = Matrix::Transponse(a);
+    std::cout << std::boolalpha << (b.Determinator() == a.Determinator()) << std::endl;
 
     return 0;
 }

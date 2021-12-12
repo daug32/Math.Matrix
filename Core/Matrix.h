@@ -1,7 +1,5 @@
 #ifndef MATH_MATRIX_H
 #define MATH_MATRIX_H
-
-#include <iostream>
 #include <vector>
 #include <stdexcept>
 
@@ -13,12 +11,14 @@ namespace Math
         
         Matrix(int rows, int columns, float defaultValue = 0);
         Matrix(std::vector<std::vector<float>> arg);
+        static Matrix IdentityMatrix(int size);
         
         int Rows();
         int Columns();
 
         float Determinator();
-        Matrix Transform();
+        static Matrix Transponse(Matrix a);
+        Matrix Minor(int row, int column);
 
         void operator*= (Matrix b);
         void operator+= (Matrix b);
