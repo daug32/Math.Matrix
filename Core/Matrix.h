@@ -1,5 +1,5 @@
-#ifndef MATH_MATRIX_H
-#define MATH_MATRIX_H
+#ifndef DG_MATH_MATRIX_H
+#define DG_MATH_MATRIX_H
 #include <vector>
 #include <stdexcept>
 
@@ -9,9 +9,8 @@ namespace Math
     public:
         std::vector<std::vector<float>> buffer;
         
-        Matrix(int rows, int columns, float defaultValue = 0);
+        Matrix(int rows = 0, int columns = 0, float defaultValue = 0);
         Matrix(std::vector<std::vector<float>> arg);
-        static Matrix IdentityMatrix(int size);
         
         int Rows();
         int Columns();
@@ -33,7 +32,7 @@ namespace Math
         void operator*= (float k);
         void operator/= (float k);
 
-        inline std::vector<float>& operator[] (int n);
+        std::vector<float>& operator[] (int n);
     };
 }
 

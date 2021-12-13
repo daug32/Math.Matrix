@@ -1,5 +1,5 @@
-#ifndef MATH_VECTOR_H
-#define MATH_VECTOR_H
+#ifndef DG_MATH_VECTOR_H
+#define DG_MATH_VECTOR_H
 #include <vector>
 
 namespace Math
@@ -23,7 +23,7 @@ namespace Math
 		Vector operator-(Vector a);
 		Vector operator*(float a);
 		Vector operator/(float a);
-
+		
 		static Vector MeanPosition(std::vector<Vector> arr);
 		static inline double GetSqLength(Vector v);
 		static inline double GetSqDistance(Vector pos1, Vector pos2);

@@ -15,13 +15,6 @@ namespace Math
     {
         buffer = arg;
     }
-    Matrix Matrix::IdentityMatrix(int size)
-    {
-        Matrix result(size, size, 0);
-        for(int i = 0; i < result.Rows(); i++)
-            result[i][i] = 1;
-        return result;
-    }
     //=============================
     //Methods
     //=============================
