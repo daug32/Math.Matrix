@@ -1,7 +1,6 @@
 #ifndef DG_MATH_MATRIX_H
 #define DG_MATH_MATRIX_H
 #include <vector>
-#include <stdexcept>
 
 namespace Math
 {
