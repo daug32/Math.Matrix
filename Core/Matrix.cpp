@@ -12,21 +12,14 @@ namespace Math
             for(auto &j : i) j = defaultValue;
         }
     }
-    Matrix::Matrix(std::vector<std::vector<float>> arg) 
-    {
-        buffer = arg;
-    }
+    Matrix::Matrix(std::vector<std::vector<float>> arg) { buffer = arg; }
+    
     //=============================
     //Methods
     //=============================
-    int Matrix::Rows() 
-    {
-        return buffer.size();
-    }
-    int Matrix::Columns() 
-    {
-        return buffer[0].size();
-    }
+    int Matrix::Rows() { return buffer.size(); }
+    int Matrix::Columns() { return buffer[0].size(); }
+    
     float Matrix::Determinator()
     {
         int size = Rows();
