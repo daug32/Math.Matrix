@@ -1,4 +1,5 @@
 #include "Math.h"
+#include <stdexcept>
 
 namespace Math
 {
