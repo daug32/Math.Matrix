@@ -1,33 +1,31 @@
-#ifndef DG_MATH_VECTOR_H
-#define DG_MATH_VECTOR_H
+#pragma once
 #include <vector>
 
 namespace Math
 {
-	class Vector {
+	class Vector
+	{
 	public:
 		float x;
 		float y;
 		float z;
 
-		Vector(float x, float y, float z = 0);
-		Vector(float value);
+		Vector( float x, float y, float z = 0 );
+		Vector( float value );
 		Vector();
 
-		void operator+=(Vector v);
-		void operator-=(Vector v);
-		void operator*=(float v);
-		void operator/=(float v);
+		void operator+=( Vector& const  v );
+		void operator-=( Vector& const v );
+		void operator*=( float v );
+		void operator/=( float v );
 
-		Vector operator+(Vector a);
-		Vector operator-(Vector a);
-		Vector operator*(float a);
-		Vector operator/(float a);
-		
-		static Vector MeanPosition(std::vector<Vector> arr);
-		static inline double GetSqLength(Vector v);
-		static inline double GetSqDistance(Vector pos1, Vector pos2);
+		Vector operator+( Vector& const a );
+		Vector operator-( Vector& const a );
+		Vector operator*( float a );
+		Vector operator/( float a );
+
+		static Vector MeanPosition( std::vector<Vector>& const arr );
+		static inline double GetSqLength( Vector& const v );
+		static inline double GetSqDistance( Vector& const pos1, Vector& const pos2 );
 	};
 }
-
-#endif

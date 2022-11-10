@@ -1,7 +1,0 @@
-cls
-g++ -c Core/Matrix.cpp -o build/Matrix.o
-g++ -c Core/Vector.cpp -o build/Vector.o
-g++ -c main.cpp -o build/main.o
-g++ build/main.o build/Matrix.o build/Vector.o -o main.exe
-
-main

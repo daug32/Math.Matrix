@@ -1,38 +1,39 @@
-#ifndef DG_MATH_MATRIX_H
-#define DG_MATH_MATRIX_H
+#pragma once
 #include <vector>
+#include <string>
 
 namespace Math
 {
-    class Matrix {
-    public:
-        std::vector<std::vector<float>> buffer;
-        
-        Matrix(int rows = 0, int columns = 0, float defaultValue = 0);
-        Matrix(std::vector<std::vector<float>> arg);
-        
-        int Rows();
-        int Columns();
+	class Matrix
+	{
+	public:
+		std::vector<std::vector<float>> buffer;
 
-        float Determinator();
-        static Matrix Transponse(Matrix a);
-        Matrix Minor(int row, int column);
+		Matrix( int rows = 0, int columns = 0, float defaultValue = 0 );
+		Matrix( const std::vector<std::vector<float>>& arg );
+		Matrix( std::vector<std::vector<float>>& const arg );
 
-        void operator*= (Matrix b);
-        void operator+= (Matrix b);
-        void operator-= (Matrix b);
-        
-        Matrix operator* (Matrix b);
-        Matrix operator+ (Matrix b);
-        Matrix operator- (Matrix b);
+		int Rows();
+		int Columns();
 
-        Matrix operator* (float k);
-        Matrix operator/ (float k);
-        void operator*= (float k);
-        void operator/= (float k);
+		float Determinator();
+		static Matrix Transponse( Matrix& const a );
+		Matrix Minor( int row, int column );
 
-        std::vector<float>& operator[] (int n);
-    };
+		void operator*= ( Matrix& const b );
+		void operator+= ( Matrix& const b );
+		void operator-= ( Matrix& const b );
+
+		Matrix operator* ( Matrix& const b );
+		Matrix operator+ ( Matrix& const b );
+		Matrix operator- ( Matrix& const b );
+
+		void operator*= ( float k );
+		void operator/= ( float k );
+		Matrix operator* ( float k );
+		Matrix operator/ ( float k );
+
+		std::vector<float>& operator[] ( int n );
+	};
 }
 
-#endif
