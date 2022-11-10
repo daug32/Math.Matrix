@@ -6,32 +6,38 @@ namespace Math
 {
 	class Matrix
 	{
+	private: 
+		int _width;
+		int _height;
+
 	public:
-		std::vector<std::vector<float>> buffer;
+		std::vector<std::vector<float>> Buffer;
 
-		Matrix( int rows = 0, int columns = 0, float defaultValue = 0 );
 		Matrix( const std::vector<std::vector<float>>& arg );
-		Matrix( std::vector<std::vector<float>>& const arg );
+		Matrix( int rows = 0, int columns = 0, float defaultValue = 0 );
 
-		int Rows();
-		int Columns();
+		int Rows() const;
+		int Columns() const;
 
-		float Determinator();
-		static Matrix Transponse( Matrix& const a );
-		Matrix Minor( int row, int column );
+		Matrix Transponse() const;
+		float Determinator() const;
+		Matrix Minor( int row, int column ) const;
 
-		void operator*= ( Matrix& const b );
-		void operator+= ( Matrix& const b );
-		void operator-= ( Matrix& const b );
+		void operator*= ( const Matrix& b );
+		void operator+= ( const Matrix& b );
+		void operator-= ( const Matrix& b );
 
-		Matrix operator* ( Matrix& const b );
-		Matrix operator+ ( Matrix& const b );
-		Matrix operator- ( Matrix& const b );
+		Matrix operator* ( const Matrix& b ) const;
+		Matrix operator+ ( const Matrix& b ) const;
+		Matrix operator- ( const Matrix& b ) const;
 
 		void operator*= ( float k );
 		void operator/= ( float k );
-		Matrix operator* ( float k );
-		Matrix operator/ ( float k );
+		Matrix operator* ( float k ) const;
+		Matrix operator/ ( float k ) const;
+
+		bool operator== ( const Matrix& a ) const;
+		bool operator!= ( const Matrix& a ) const;
 
 		std::vector<float>& operator[] ( int n );
 	};

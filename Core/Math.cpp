@@ -3,34 +3,34 @@
 
 namespace Math
 {
-	float Radians( float degrees )
+	inline float Radians( float degrees )
 	{
 		return PI / 180.f * degrees;
 	}
 
-	float Degrees( float radians )
+	inline float Degrees( float radians )
 	{
 		return 180.f / PI * radians;
 	}
 
-	Vector MatrixToVector( const Matrix& a )
+	Vector3 MatrixToVector( const Matrix& a )
 	{
-		Vector result;
+		Vector3 result;
 		
-		result.x = a.buffer[0][0];
-		result.y = a.buffer[1][0];
-		result.z = a.buffer[2][0];
+		result.SetX( a.Buffer[0][0] );
+		result.SetY( a.Buffer[1][0] );
+		result.SetZ( a.Buffer[2][0] );
 
 		return result;
 	}
 
-	Matrix VectorToMatrix( const Vector& a )
+	Matrix VectorToMatrix( const Vector3& a )
 	{
 		Matrix result( 3, 1 );
 		
-		result[0][0] = a.x;
-		result[1][0] = a.y;
-		result[2][0] = a.x;
+		result[0][0] = a.GetX();
+		result[1][0] = a.GetY();
+		result[2][0] = a.GetZ();
 
 		return result;
 	}
@@ -94,6 +94,7 @@ namespace Math
 
 		return result;
 	}
+
 	Matrix IdentityMatrix( int size )
 	{
 		Matrix result( size, size, 0 );

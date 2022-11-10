@@ -6,60 +6,57 @@ namespace Math
 {
 	Matrix::Matrix( int rows, int columns, float defaultValue )
 	{
-		buffer.resize( rows );
-		for ( auto& i : buffer )
+		_height = rows;
+		_width = columns;
+
+		Buffer.resize( rows );
+
+		for ( auto& row : Buffer )
 		{
-			i.resize( columns );
-			for ( auto& j : i )
-			{
-				j = defaultValue;
-			}
+			row.resize( columns, defaultValue );
 		}
 	}
 
 	Matrix::Matrix( const std::vector<std::vector<float>>& arg )
 	{
-		buffer = arg;
-	}
+		_height = arg.size();
+		_width = _height > 0 ? arg[0].size() : 0;
 
-	Matrix::Matrix( std::vector<std::vector<float>>& const arg )
-	{
-		buffer = arg;
+		Buffer = arg;
 	}
 
 	//=============================
 	//Methods
 	//=============================
-	int Matrix::Rows()
+	int Matrix::Rows() const
 	{
-		return buffer.size();
+		return _height;
 	}
 
-	int Matrix::Columns()
+	int Matrix::Columns() const
 	{
-		return buffer[0].size();
+		return _width;
 	}
 
-	float Matrix::Determinator()
+	float Matrix::Determinator() const
 	{
-		int size = Rows();
-		if ( size != Columns() )
+		if ( _height != _width )
 		{
 			throw std::invalid_argument( "Can't calculate determinator for not sqгare matrix" );
 		}
 
-		if ( size == 2 )
+		if ( _height == 2 )
 		{
 			return
-				buffer[0][0] * buffer[1][1] -
-				buffer[1][0] * buffer[0][1];
+				Buffer[0][0] * Buffer[1][1] -
+				Buffer[1][0] * Buffer[0][1];
 		}
 
 		float result = 0;
 		float k = -1;
 
 		Matrix a( *this );
-		for ( int i = 0; i < Columns(); i++ )
+		for ( int i = 0; i < _width; i++ )
 		{
 			result += ( k *= -1 ) * a[0][i] * a.Minor( 0, i ).Determinator();
 		}
@@ -67,34 +64,31 @@ namespace Math
 		return result;
 	}
 
-	Matrix Matrix::Transponse( Matrix& const a )
+	Matrix Matrix::Transponse() const
 	{
-		Matrix result( a.Columns(), a.Rows() );
+		Matrix result( _width, _height );
 
-		for ( int i = 0; i < a.Rows(); i++ )
+		for ( int y = 0; y < _height; y++ )
 		{
-			for ( int j = 0; j < a.Columns(); j++ )
+			for ( int x = 0; x < _width; x++ )
 			{
-				result[j][i] = a[i][j];
+				result[x][y] = Buffer[y][x];
 			}
 		}
 
 		return result;
 	}
 
-	Matrix Matrix::Minor( int row, int column )
+	Matrix Matrix::Minor( int row, int column ) const
 	{
-		int rowCount = Rows();
-		int columnCount = Columns();
-
-		if ( row < 0 || row > rowCount ||
-			column < 0 || column > columnCount )
+		if ( row < 0 || row > _height ||
+			column < 0 || column > _width )
 		{
 			throw std::invalid_argument( "Can't find minor with those arguments" );
 		}
 
-		int targetRowCount = rowCount - 1;
-		int targetColumnCount = columnCount - 1;
+		int targetRowCount = _height - 1;
+		int targetColumnCount = _width - 1;
 		Matrix result = Matrix( targetRowCount, targetColumnCount );
 
 		int y = 0;
@@ -114,7 +108,7 @@ namespace Math
 					x++;
 				}
 
-				result[i][j] = buffer[y][x];
+				result[i][j] = Buffer[y][x];
 				x++;
 			}
 
@@ -127,22 +121,24 @@ namespace Math
 	//=============================
 	//Operators
 	//=============================
-	Matrix Matrix::operator* ( Matrix& const b )
+	Matrix Matrix::operator* ( const Matrix& b ) const
 	{
-		if ( Columns() != b.Rows() )
+		if ( _width != b._height )
 		{
 			throw std::invalid_argument( "Impossible to multipy those matrices" );
 		}
 
-		Matrix r( Rows(), b.Columns() );
+		Matrix r( _height, b._width );
 
-		for ( int fy = 0; fy < Rows(); fy++ )
+		for ( int firstY = 0; firstY < _height; firstY++ )
 		{
-			for ( int sx = 0; sx < b.Columns(); sx++ )
+			for ( int secondX = 0; secondX < b._width; secondX++ )
 			{
-				for ( int fx = 0; fx < Columns(); fx++ )
+				for ( int firstX = 0; firstX < _width; firstX++ )
 				{
-					r[fy][sx] += buffer[fy][fx] * b[fx][sx];
+					r[firstY][secondX] += 
+						Buffer[firstY][firstX] * 
+						b.Buffer[firstX][secondX];
 				}
 			}
 		}
@@ -150,68 +146,68 @@ namespace Math
 		return r;
 	}
 
-	Matrix Matrix::operator+ ( Matrix& const b )
+	Matrix Matrix::operator+ ( const Matrix& b ) const
 	{
-		if ( Columns() != b.Columns() || Rows() != b.Rows() )
+		if ( _width != b._width || _height != b._height )
 		{
 			throw std::invalid_argument( "Matrices have different sizes" );
 		}
 
 		Matrix r( *this );
 
-		for ( int y = 0; y < Rows(); y++ )
+		for ( int y = 0; y < _height; y++ )
 		{
-			for ( int x = 0; x < Columns(); x++ )
+			for ( int x = 0; x < _width; x++ )
 			{
-				r[y][x] += b[y][x];
+				r[y][x] += b.Buffer[y][x];
 			}
 		}
 
 		return r;
 	}
 
-	Matrix Matrix::operator- ( Matrix& const b )
+	Matrix Matrix::operator- ( const Matrix& b ) const
 	{
-		if ( Columns() != b.Columns() || Rows() != b.Rows() )
+		if ( _width != b._width || _height != b._height )
 		{
 			throw std::invalid_argument( "Matrices have different sizes" );
 		}
 
 		Matrix r( *this );
 
-		for ( int y = 0; y < Rows(); y++ )
+		for ( int y = 0; y < _height; y++ )
 		{
-			for ( int x = 0; x < Columns(); x++ )
+			for ( int x = 0; x < _width; x++ )
 			{
-				r[y][x] -= b[y][x];
+				r[y][x] -= b.Buffer[y][x];
 			}
 		}
 
 		return r;
 	}
 
-	void Matrix::operator*= ( Matrix& const b )
+	void Matrix::operator*= ( const Matrix& b )
 	{
 		*this = *this * b;
 	}
 
-	void Matrix::operator+= ( Matrix& const b )
+	void Matrix::operator+= ( const Matrix& b )
 	{
 		*this = *this + b;
 	}
 
-	void Matrix::operator-= ( Matrix& const b )
+	void Matrix::operator-= ( const Matrix& b )
 	{
 		*this = *this - b;
 	}
 
-	Matrix Matrix::operator* ( float k )
+	Matrix Matrix::operator* ( float k ) const
 	{
 		Matrix r( *this );
 
-		for ( int y = 0; y < Rows(); y++ )
+		for ( int y = 0; y < _height; y++ )
 		{
-			for ( int x = 0; x < Columns(); x++ )
+			for ( int x = 0; x < _width; x++ )
 			{
 				r[y][x] *= k;
 			}
@@ -219,7 +215,7 @@ namespace Math
 
 		return r;
 	}
-	Matrix Matrix::operator/ ( float k )
+	Matrix Matrix::operator/ ( float k ) const
 	{
 		if ( k == 0 )
 		{
@@ -228,9 +224,9 @@ namespace Math
 
 		Matrix r( *this );
 
-		for ( int y = 0; y < Rows(); y++ )
+		for ( int y = 0; y < _height; y++ )
 		{
-			for ( int x = 0; x < Columns(); x++ )
+			for ( int x = 0; x < _width; x++ )
 			{
 				r[y][x] /= k;
 			}
@@ -251,6 +247,32 @@ namespace Math
 
 	inline std::vector<float>& Matrix::operator[] ( int n )
 	{
-		return buffer[n];
+		return Buffer[n];
+	}
+
+	bool Matrix::operator== ( const Matrix& a ) const
+	{
+		if ( a._width != _width || a._height != _height )
+		{
+			return false;
+		}
+
+		for ( int y = 0; y < _height; y++ )
+		{
+			for ( int x = 0; x < _width; x++ )
+			{
+				if ( a.Buffer[y][x] != Buffer[y][x] )
+				{
+					return false;
+				}
+			}
+		}
+
+		return true;
+	}
+
+	bool Matrix::operator!= ( const Matrix& a ) const
+	{
+		return !this->operator==( a );
 	}
 }
