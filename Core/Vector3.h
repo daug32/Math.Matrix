@@ -6,7 +6,7 @@ namespace Math
 	class Vector3
 	{
 	private:
-		std::vector<float> _buffer;
+		std::vector<float> m_buffer;
 
 	public:
 		float GetX() const;

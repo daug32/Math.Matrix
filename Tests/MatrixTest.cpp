@@ -8,6 +8,26 @@ using std::vector;
 
 class MatrixTest
 {
+public:
+	static bool Run()
+	{
+		try
+		{
+			Ctor_From2DArray_SuccessfullInitializationAndArraysIsNotModified();
+			Transponse_RectangleMatrix_TransponedRectangledMatrix();
+			Determinant_SquareMatrix_ValidDeterminator();
+			Determinant_NotSquareMatrix_Exception();
+			IdentityMatrix();
+		}
+		catch (std::exception& ex)
+		{
+			std::cout << ex.what() << std::endl;
+			return false;
+		}
+
+		return true;
+	}
+
 private:
 	static void Ctor_From2DArray_SuccessfullInitializationAndArraysIsNotModified()
 	{
@@ -124,22 +144,19 @@ private:
 		);
 	}
 
-public:
-	static bool Run()
+	static void IdentityMatrix()
 	{
-		try
-		{
-			Ctor_From2DArray_SuccessfullInitializationAndArraysIsNotModified();
-			Determinant_SquareMatrix_ValidDeterminator();
-			Transponse_RectangleMatrix_TransponedRectangledMatrix();
-			Determinant_NotSquareMatrix_Exception();
-		}
-		catch (std::exception& ex)
-		{
-			std::cout << ex.what() << std::endl;
-			return false;
-		}
+		Matrix expected({
+			{1, 0, 0}, 
+			{0, 1, 0}, 
+			{0, 0, 1}
+		});
 
-		return true;
+		auto result = Matrix::IdentityMatrix(3);
+
+		if (expected != result)
+		{
+			throw TestException("Invalid identity matrix");
+		}
 	}
 };

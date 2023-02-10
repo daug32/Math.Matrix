@@ -7,17 +7,17 @@ namespace Math
 	//-------------------------------------------
 	Vector3::Vector3( float x, float y, float z )
 	{
-		_buffer = { x, y, z };
+		m_buffer = { x, y, z };
 	}
 
 	Vector3::Vector3( float value )
 	{
-		_buffer = { value, value, value };
+		m_buffer = { value, value, value };
 	}
 
 	Vector3::Vector3()
 	{
-		_buffer = { 0, 0, 0 };
+		m_buffer = { 0, 0, 0 };
 	}
 
 	//-------------------------------------------
@@ -25,32 +25,32 @@ namespace Math
 	//-------------------------------------------
 	float Vector3::GetX() const
 	{
-		return _buffer[0];
+		return m_buffer[0];
 	}
 
 	void Vector3::SetX( float x )
 	{
-		_buffer[0] = x;
+		m_buffer[0] = x;
 	}
 
 	float Vector3::GetY() const
 	{
-		return _buffer[1];
+		return m_buffer[1];
 	}
 
 	void Vector3::SetY( float y )
 	{
-		_buffer[1] = y;
+		m_buffer[1] = y;
 	}
 
 	float Vector3::GetZ() const
 	{
-		return _buffer[2];
+		return m_buffer[2];
 	}
 
 	void Vector3::SetZ( float z )
 	{
-		_buffer[2] = z;
+		m_buffer[2] = z;
 	}
 
 	//-------------------------------------------
@@ -58,65 +58,65 @@ namespace Math
 	//-------------------------------------------
 	void Vector3::operator+=( const Vector3& v )
 	{
-		_buffer[0] += v.GetX();
-		_buffer[1] += v.GetY();
-		_buffer[2] += v.GetZ();
+		m_buffer[0] += v.GetX();
+		m_buffer[1] += v.GetY();
+		m_buffer[2] += v.GetZ();
 	}
 
 	void Vector3::operator-=( const Vector3& v )
 	{
-		_buffer[0] -= v.GetX();
-		_buffer[1] -= v.GetY();
-		_buffer[2] -= v.GetZ();
+		m_buffer[0] -= v.GetX();
+		m_buffer[1] -= v.GetY();
+		m_buffer[2] -= v.GetZ();
 	}
 
 	void Vector3::operator*=( float v )
 	{
-		_buffer[0] *= v;
-		_buffer[1] *= v;
-		_buffer[2] *= v;
+		m_buffer[0] *= v;
+		m_buffer[1] *= v;
+		m_buffer[2] *= v;
 	}
 
 	void Vector3::operator/=( float v )
 	{
-		_buffer[0] /= v;
-		_buffer[1] /= v;
-		_buffer[2] /= v;
+		m_buffer[0] /= v;
+		m_buffer[1] /= v;
+		m_buffer[2] /= v;
 	}
 
 	Vector3 Vector3::operator+( const Vector3& a ) const
 	{
 		return Vector3(
-			_buffer[0] + a.GetX(),
-			_buffer[1] + a.GetY(),
-			_buffer[2] + a.GetZ()
+			m_buffer[0] + a.GetX(),
+			m_buffer[1] + a.GetY(),
+			m_buffer[2] + a.GetZ()
 		);
 	}
 
 	Vector3 Vector3::operator-( const Vector3& a ) const
 	{
 		return Vector3(
-			_buffer[0] - a.GetX(),
-			_buffer[1] - a.GetY(),
-			_buffer[2] - a.GetZ()
+			m_buffer[0] - a.GetX(),
+			m_buffer[1] - a.GetY(),
+			m_buffer[2] - a.GetZ()
 		);
 	}
 
 	Vector3 Vector3::operator*( float a ) const
 	{
 		return Vector3(
-			_buffer[0] * a,
-			_buffer[1] * a,
-			_buffer[2] * a
+			m_buffer[0] * a,
+			m_buffer[1] * a,
+			m_buffer[2] * a
 		);
 	}
 
 	Vector3 Vector3::operator/( float a ) const
 	{
 		return Vector3(
-			_buffer[0] / a,
-			_buffer[1] / a,
-			_buffer[2] / a
+			m_buffer[0] / a,
+			m_buffer[1] / a,
+			m_buffer[2] / a
 		);
 	}
 

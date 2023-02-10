@@ -26,7 +26,7 @@ namespace Math
 	}
 
 	//=============================
-	//Methods
+	//Getters
 	//=============================
 	int Matrix::Rows() const
 	{
@@ -37,6 +37,15 @@ namespace Math
 	{
 		return m_width;
 	}
+
+	std::vector<std::vector<float>> Matrix::GetBuffer() const
+	{
+		return m_buffer;
+	}
+
+	//=============================
+	//Methods
+	//=============================
 
 	float Matrix::Determinant() const
 	{
@@ -118,9 +127,76 @@ namespace Math
 		return result;
 	}
 
-	std::vector<std::vector<float>> Matrix::GetBuffer() const 
+	Matrix Matrix::RotationXY(float angle, int scale)
 	{
-		return m_buffer;
+		if (scale < 3)
+		{
+			throw std::invalid_argument("Matrix scale is less then 3");
+		}
+
+		float sin = std::sin(angle);
+		float cos = std::cos(angle);
+
+		auto result = IdentityMatrix(scale);
+
+		result[0][0] = cos;
+		result[0][1] = -sin;
+		result[1][0] = sin;
+		result[1][1] = cos;
+
+		return result;
+	}
+
+	Matrix Matrix::RotationYZ(float angle, int scale)
+	{
+		if (scale < 3)
+		{
+			throw std::invalid_argument("Matrix scale is less then 3");
+		}
+
+		float sin = std::sin(angle);
+		float cos = std::cos(angle);
+
+		auto result = IdentityMatrix(scale);
+
+		result[1][1] = cos;
+		result[1][2] = -sin;
+		result[2][1] = sin;
+		result[2][2] = cos;
+
+		return result;
+	}
+
+	Matrix Matrix::RotationXZ(float angle, int scale)
+	{
+		if (scale < 3)
+		{
+			throw std::invalid_argument("Matrix scale is less then 3");
+		}
+
+		float sin = std::sin(angle);
+		float cos = std::cos(angle);
+
+		auto result = IdentityMatrix(scale);
+
+		result[0][0] = cos;
+		result[0][2] = sin;
+		result[2][0] = -sin;
+		result[2][2] = cos;
+
+		return result;
+	}
+
+	Matrix Matrix::IdentityMatrix(int size)
+	{
+		Matrix result(size, size, 0);
+
+		for (int i = 0; i < result.Rows(); i++)
+		{
+			result[i][i] = 1;
+		}
+
+		return result;
 	}
 
 	//=============================

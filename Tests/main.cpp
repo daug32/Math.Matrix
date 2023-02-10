@@ -2,7 +2,7 @@
 
 int main()
 {
-	bool successfull = MatrixTest::RunAll();
+	bool successfull = MatrixTest::Run();
 	if (successfull)
 	{
 		std::cout << "Tests are successfull" << std::endl;
