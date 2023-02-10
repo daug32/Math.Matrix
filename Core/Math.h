@@ -9,9 +9,6 @@ namespace Math
     inline float Radians(float degrees);
     inline float Degrees(float radians);
 
-    Vector3 MatrixToVector(const Matrix& a);
-    Matrix VectorToMatrix(const Vector3& a);
-
     Matrix IdentityMatrix(int size);
     Matrix RotationXY(float angle, int scale = 4);
     Matrix RotationYZ(float angle, int scale = 4);

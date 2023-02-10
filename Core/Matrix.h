@@ -7,12 +7,12 @@ namespace Math
 	class Matrix
 	{
 	private: 
-		int _width;
-		int _height;
+		int m_width;
+		int m_height;
+
+		std::vector<std::vector<float>> m_buffer;
 
 	public:
-		std::vector<std::vector<float>> Buffer;
-
 		Matrix( const std::vector<std::vector<float>>& arg );
 		Matrix( int rows = 0, int columns = 0, float defaultValue = 0 );
 
@@ -22,6 +22,8 @@ namespace Math
 		Matrix Transponse() const;
 		float Determinator() const;
 		Matrix Minor( int row, int column ) const;
+
+		std::vector<std::vector<float>> GetBuffer() const;
 
 		void operator*= ( const Matrix& b );
 		void operator+= ( const Matrix& b );

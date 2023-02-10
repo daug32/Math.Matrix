@@ -13,28 +13,6 @@ namespace Math
 		return 180.f / PI * radians;
 	}
 
-	Vector3 MatrixToVector( const Matrix& a )
-	{
-		Vector3 result;
-		
-		result.SetX( a.Buffer[0][0] );
-		result.SetY( a.Buffer[1][0] );
-		result.SetZ( a.Buffer[2][0] );
-
-		return result;
-	}
-
-	Matrix VectorToMatrix( const Vector3& a )
-	{
-		Matrix result( 3, 1 );
-		
-		result[0][0] = a.GetX();
-		result[1][0] = a.GetY();
-		result[2][0] = a.GetZ();
-
-		return result;
-	}
-
 	Matrix RotationXY( float angle, int scale )
 	{
 		if ( scale < 3 )
@@ -106,5 +84,4 @@ namespace Math
 
 		return result;
 	}
-
 }

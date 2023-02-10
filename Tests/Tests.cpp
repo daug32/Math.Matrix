@@ -4,7 +4,7 @@ using namespace Math;
 
 void prtMatrix(Matrix a)
 {
-	for (auto& i : a.Buffer)
+	for (auto& i : a.GetBuffer())
 	{
 		for (auto& j : i)
 		{
