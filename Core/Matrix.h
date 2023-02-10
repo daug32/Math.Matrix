@@ -20,7 +20,7 @@ namespace Math
 		int Columns() const;
 
 		Matrix Transponse() const;
-		float Determinator() const;
+		float Determinant() const;
 		Matrix Minor( int row, int column ) const;
 
 		std::vector<std::vector<float>> GetBuffer() const;

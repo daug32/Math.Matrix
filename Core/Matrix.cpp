@@ -38,7 +38,7 @@ namespace Math
 		return m_width;
 	}
 
-	float Matrix::Determinator() const
+	float Matrix::Determinant() const
 	{
 		if ( m_height != m_width )
 		{
@@ -58,7 +58,7 @@ namespace Math
 		Matrix a( *this );
 		for ( int i = 0; i < m_width; i++ )
 		{
-			result += ( k *= -1 ) * a[0][i] * a.Minor( 0, i ).Determinator();
+			result += ( k *= -1 ) * a[0][i] * a.Minor( 0, i ).Determinant();
 		}
 
 		return result;
