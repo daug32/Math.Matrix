@@ -93,7 +93,7 @@ namespace Math
 		if ( row < 0 || row > m_height ||
 			column < 0 || column > m_width )
 		{
-			throw std::invalid_argument( "Can't find minor with those arguments" );
+			return Matrix(*this);
 		}
 
 		int targetRowCount = m_height - 1;

@@ -14,9 +14,13 @@ public:
 		try
 		{
 			Ctor_From2DArray_SuccessfullInitializationAndArraysIsNotModified();
+
 			Transponse_RectangleMatrix_TransponedRectangledMatrix();
 			Determinant_SquareMatrix_ValidDeterminator();
 			Determinant_NotSquareMatrix_Exception();
+			Minor_ExistingRowAndColumn_ValidMinor();
+			Minor_NonExistingRowAndColumn_SameMatrix();
+
 			IdentityMatrix();
 		}
 		catch (std::exception& ex)
@@ -142,6 +146,50 @@ private:
 		throw TestException(
 			"Determinant can\'t be calculated for non square matrices, but no exceptions were thrown"
 		);
+	}
+
+	static void Minor_ExistingRowAndColumn_ValidMinor()
+	{
+		Matrix a({
+			{1, 2, 3, 4},
+			{5, 6, 7, 8},
+			{9, 10, 11, 12}
+		});
+
+		int row = 2;
+		int column = 3;
+
+		Matrix expected({
+			{1, 2, 3}, 
+			{5, 6, 7}
+		});
+
+		auto result = a.Minor(row, column);
+
+		if (result != expected)
+		{
+			throw TestException("Matrix\' minor is not valid");
+		}
+	}
+
+	static void Minor_NonExistingRowAndColumn_SameMatrix()
+	{
+		Matrix a({
+			{1, 2, 3, 4},
+			{5, 6, 7, 8},
+			{9, 10, 11, 12}
+		});
+
+		int row = -1;
+		int column = 5;
+
+		Matrix expected(a);
+
+		auto result = a.Minor(row, column);
+		if (result != expected)
+		{
+			throw TestException("Matrix\' minor is not valid");
+		}
 	}
 
 	static void IdentityMatrix()
