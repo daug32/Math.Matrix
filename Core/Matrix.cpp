@@ -1,4 +1,5 @@
 #include "Matrix.h"
+#include "Math.h"
 #include <iostream>
 #include <stdexcept>
 
@@ -123,6 +124,37 @@ namespace Math
 		return result;
 	}
 
+	Matrix Matrix::Inverse() const
+	{
+		if (m_height != m_width)
+		{
+			throw std::invalid_argument("Non square matrices do not have inverse matrix");
+		}
+
+		int determinant = Determinant();
+		if (determinant == 0)
+		{
+			throw std::invalid_argument("Determinant is 0, there is no inverse matrix");
+		}
+
+		auto transponsed = Transponse();
+		Matrix result(m_height, m_width);
+		
+		int k = -1;
+		for (int y = 0; y < m_height; y++)
+		{
+			for (int x = 0; x < m_width; x++)
+			{
+				result[y][x] = (k *= -1) * transponsed.Minor(y, x).Determinant() / determinant;
+			}
+		}
+
+		return result;
+	}
+
+	//=============================
+	//Static Methods
+	//=============================
 	Matrix Matrix::RotationXY(float angle, int scale)
 	{
 		if (scale < 3)
