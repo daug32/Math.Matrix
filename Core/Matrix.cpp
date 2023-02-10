@@ -46,7 +46,6 @@ namespace Math
 	//=============================
 	//Methods
 	//=============================
-
 	float Matrix::Determinant() const
 	{
 		if ( m_height != m_width )
@@ -96,32 +95,29 @@ namespace Math
 			return Matrix(*this);
 		}
 
-		int targetRowCount = m_height - 1;
-		int targetColumnCount = m_width - 1;
-		Matrix result = Matrix( targetRowCount, targetColumnCount );
+		Matrix result( m_height - 1, m_width - 1 );
 
-		int y = 0;
-		for ( int i = 0; i < targetRowCount; i++ )
+		int newY = 0;
+		for ( int oldY = 0; oldY < m_height; oldY++)
 		{
-			if ( y == row )
+			if ( oldY == row )
 			{
-				y++;
+				continue;
 			}
 
-			int x = 0;
-
-			for ( int j = 0; j < targetColumnCount; j++ )
+			int newX = 0;
+			for ( int oldX = 0; oldX < m_width; oldX++)
 			{
-				if ( x == column )
+				if ( oldX == column )
 				{
-					x++;
+					continue;
 				}
 
-				result[i][j] = m_buffer[y][x];
-				x++;
+				result[newY][newX] = m_buffer[oldY][oldX];
+				newX++;
 			}
 
-			y++;
+			newY++;
 		}
 
 		return result;

@@ -16,10 +16,11 @@ public:
 			Ctor_From2DArray_SuccessfullInitializationAndArraysIsNotModified();
 
 			Transponse_RectangleMatrix_TransponedRectangledMatrix();
+			Minor_BorderlineRowAndColumn_ValidMinor();
+			Minor_NonExistingRowAndColumn_SameMatrix();
+			Minor_NonBorderlineRowAndColumn_ValidMinor();
 			Determinant_SquareMatrix_ValidDeterminator();
 			Determinant_NotSquareMatrix_Exception();
-			Minor_ExistingRowAndColumn_ValidMinor();
-			Minor_NonExistingRowAndColumn_SameMatrix();
 
 			IdentityMatrix();
 		}
@@ -148,7 +149,7 @@ private:
 		);
 	}
 
-	static void Minor_ExistingRowAndColumn_ValidMinor()
+	static void Minor_BorderlineRowAndColumn_ValidMinor()
 	{
 		Matrix a({
 			{1, 2, 3, 4},
@@ -184,6 +185,29 @@ private:
 		int column = 5;
 
 		Matrix expected(a);
+
+		auto result = a.Minor(row, column);
+		if (result != expected)
+		{
+			throw TestException("Matrix\' minor is not valid");
+		}
+	}
+
+	static void Minor_NonBorderlineRowAndColumn_ValidMinor()
+	{
+		Matrix a({
+			{1, 2, 3}, 
+			{4, 5, 6}, 
+			{7, 8, 9}
+		});
+
+		int row = 1;
+		int column = 1;
+
+		Matrix expected({
+			{1, 3}, 
+			{7, 9}
+		});
 
 		auto result = a.Minor(row, column);
 		if (result != expected)

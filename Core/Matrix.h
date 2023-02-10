@@ -26,6 +26,7 @@ namespace Math
 		Matrix Transponse() const;
 		float Determinant() const;
 		Matrix Minor( int row, int column ) const;
+		Matrix Inverse() const;
 
 		static Matrix IdentityMatrix(int size);
 		static Matrix RotationXY(float angle, int scale = 4);
