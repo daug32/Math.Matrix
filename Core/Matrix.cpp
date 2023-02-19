@@ -123,66 +123,37 @@ namespace Math
 		return result;
 	}
 
-	Matrix Matrix::RotationXY(float angle, int scale)
+	Matrix Matrix::Inverse() const
 	{
-		if (scale < 3)
+		if (m_height != m_width)
 		{
-			throw std::invalid_argument("Matrix scale is less then 3");
+			throw std::invalid_argument("Non square matrices do not have inverse matrix");
 		}
 
-		float sin = std::sin(angle);
-		float cos = std::cos(angle);
+		int determinant = Determinant();
+		if (determinant == 0)
+		{
+			throw std::invalid_argument("Determinant is 0, there is no inverse matrix");
+		}
 
-		auto result = IdentityMatrix(scale);
-
-		result[0][0] = cos;
-		result[0][1] = -sin;
-		result[1][0] = sin;
-		result[1][1] = cos;
+		auto transponsed = Transponse();
+		Matrix result(m_height, m_width);
+		
+		int k = -1;
+		for (int y = 0; y < m_height; y++)
+		{
+			for (int x = 0; x < m_width; x++)
+			{
+				result[y][x] = (k *= -1) * transponsed.Minor(y, x).Determinant() / determinant;
+			}
+		}
 
 		return result;
 	}
 
-	Matrix Matrix::RotationYZ(float angle, int scale)
-	{
-		if (scale < 3)
-		{
-			throw std::invalid_argument("Matrix scale is less then 3");
-		}
-
-		float sin = std::sin(angle);
-		float cos = std::cos(angle);
-
-		auto result = IdentityMatrix(scale);
-
-		result[1][1] = cos;
-		result[1][2] = -sin;
-		result[2][1] = sin;
-		result[2][2] = cos;
-
-		return result;
-	}
-
-	Matrix Matrix::RotationXZ(float angle, int scale)
-	{
-		if (scale < 3)
-		{
-			throw std::invalid_argument("Matrix scale is less then 3");
-		}
-
-		float sin = std::sin(angle);
-		float cos = std::cos(angle);
-
-		auto result = IdentityMatrix(scale);
-
-		result[0][0] = cos;
-		result[0][2] = sin;
-		result[2][0] = -sin;
-		result[2][2] = cos;
-
-		return result;
-	}
-
+	//=============================
+	//Static Methods
+	//=============================
 	Matrix Matrix::IdentityMatrix(int size)
 	{
 		Matrix result(size, size, 0);

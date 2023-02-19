@@ -1,4 +1,5 @@
 ﻿#include "../Core/stdafx.h"
+#include <math.h>
 #include <iostream>
 #include <vector>
 #include <stdexcept>
@@ -15,12 +16,17 @@ public:
 		{
 			Ctor_From2DArray_SuccessfullInitializationAndArraysIsNotModified();
 
+			OptorMultipy_MultipiableMatrices_ValidMatrix();
+
 			Transponse_RectangleMatrix_TransponedRectangledMatrix();
 			Minor_BorderlineRowAndColumn_ValidMinor();
 			Minor_NonExistingRowAndColumn_SameMatrix();
 			Minor_NonBorderlineRowAndColumn_ValidMinor();
 			Determinant_SquareMatrix_ValidDeterminator();
 			Determinant_NotSquareMatrix_Exception();
+			Inverse_SquareMatrixWithNonZeroDeterminant_ValidInverseMatrix();
+			Inverse_NonSquareMatrixWithNonZeroDeterminant_Exception();
+			Inverse_SquareMatrixWithZeroDeterminant_Exception();
 
 			IdentityMatrix();
 		}
@@ -34,6 +40,29 @@ public:
 	}
 
 private:
+	bool static ApproximateMatricesComparison(Matrix a, Matrix b)
+	{
+		if (a.Rows() != b.Rows() || 
+			a.Columns() != b.Columns())
+		{
+			return false;
+		}
+
+		for (size_t y = 0; y < a.Rows(); y++)
+		{
+			for (size_t x = 0; x < a.Columns(); x++)
+			{
+				bool areEqual = fabs(a[y][x] - b[y][x]) < 0.000001f;
+				if (!areEqual)
+				{
+					return false;
+				}
+			}
+		}
+
+		return true;
+	}
+
 	static void Ctor_From2DArray_SuccessfullInitializationAndArraysIsNotModified()
 	{
 		vector<vector<float>> matrixBuffer =
@@ -80,6 +109,31 @@ private:
 					std::to_string(matrixBuffer[0].size())
 				);
 			}
+		}
+	}
+
+	static void OptorMultipy_MultipiableMatrices_ValidMatrix()
+	{
+		Matrix a({
+			{2, -3, 1}, 
+			{5, 4, -2}
+		});
+
+		Matrix b({
+			{-7, 5}, 
+			{2, -1}, 
+			{4, 3}
+		});
+
+		Matrix expected({
+			{-16, 16}, 
+			{-35, 15}
+		});
+
+		auto result = a * b;
+		if (result != expected)
+		{
+			throw TestException("Invalid multipying");
 		}
 	}
 
@@ -230,5 +284,71 @@ private:
 		{
 			throw TestException("Invalid identity matrix");
 		}
+	}
+
+	static void Inverse_SquareMatrixWithNonZeroDeterminant_ValidInverseMatrix()
+	{
+		Matrix a({
+			{-1, 2, -2},
+			{2, -1, 5},
+			{3, -2, 4}
+		});
+
+		Matrix expected({
+			{0.6, -0.4, 0.8}, 
+			{0.7, 0.2, 0.1},
+			{-0.1, 0.4, -0.3}
+		});
+
+		auto result = a.Inverse();
+		if (!ApproximateMatricesComparison(result, expected))
+		{
+			throw TestException("Inverse matrix is not valid");
+		}
+
+		result *= a;
+		if (!ApproximateMatricesComparison(result, Matrix::IdentityMatrix(3)))
+		{
+			throw TestException("Inverse matrix is not valid");
+		}
+	}
+
+	static void Inverse_NonSquareMatrixWithNonZeroDeterminant_Exception()
+	{
+		Matrix a({
+			{-1, 2, -2},
+			{2, -1, 5}
+		});
+
+		try
+		{
+			a.Inverse();
+		}
+		catch (std::exception& ex)
+		{
+			return;
+		}
+
+		throw TestException("Inverse matrix doesn't exists but it was calculated");
+	}
+
+	static void Inverse_SquareMatrixWithZeroDeterminant_Exception()
+	{
+		Matrix a({
+			{-1, 2, -2},
+			{-1, 2, -2},
+			{3, -2, 4}
+		});
+
+		try
+		{
+			a.Inverse();
+		}
+		catch (std::exception& ex)
+		{
+			return;
+		}
+
+		throw TestException("Inverse matrix doesn't exists but it was calculated");
 	}
 };
