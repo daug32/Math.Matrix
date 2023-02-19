@@ -1,4 +1,4 @@
-﻿#include "../Core/stdafx.h"
+﻿#include "../Core/Matrix.h"
 #include <math.h>
 #include <iostream>
 #include <vector>
@@ -42,7 +42,7 @@ public:
 private:
 	bool static ApproximateMatricesComparison(Matrix a, Matrix b)
 	{
-		if (a.Rows() != b.Rows() || 
+		if (a.Rows() != b.Rows() ||
 			a.Columns() != b.Columns())
 		{
 			return false;
@@ -94,9 +94,9 @@ private:
 			);
 		}
 
-		for (int y = 0; y < a.Rows(); y++)
+		for (size_t y = 0; y < a.Rows(); y++)
 		{
-			for (int x = 0; x < a.Columns(); x++)
+			for (size_t x = 0; x < a.Columns(); x++)
 			{
 				if (a[y][x] == matrixBuffer[y][x])
 				{
@@ -115,18 +115,18 @@ private:
 	static void OptorMultipy_MultipiableMatrices_ValidMatrix()
 	{
 		Matrix a({
-			{2, -3, 1}, 
+			{2, -3, 1},
 			{5, 4, -2}
 		});
 
 		Matrix b({
-			{-7, 5}, 
-			{2, -1}, 
+			{-7, 5},
+			{2, -1},
 			{4, 3}
 		});
 
 		Matrix expected({
-			{-16, 16}, 
+			{-16, 16},
 			{-35, 15}
 		});
 
@@ -193,7 +193,7 @@ private:
 		{
 			a.Determinant();
 		}
-		catch (std::exception& ex)
+		catch (std::exception&)
 		{
 			return;
 		}
@@ -215,7 +215,7 @@ private:
 		int column = 3;
 
 		Matrix expected({
-			{1, 2, 3}, 
+			{1, 2, 3},
 			{5, 6, 7}
 		});
 
@@ -250,8 +250,8 @@ private:
 	static void Minor_NonBorderlineRowAndColumn_ValidMinor()
 	{
 		Matrix a({
-			{1, 2, 3}, 
-			{4, 5, 6}, 
+			{1, 2, 3},
+			{4, 5, 6},
 			{7, 8, 9}
 		});
 
@@ -259,7 +259,7 @@ private:
 		int column = 1;
 
 		Matrix expected({
-			{1, 3}, 
+			{1, 3},
 			{7, 9}
 		});
 
@@ -273,8 +273,8 @@ private:
 	static void IdentityMatrix()
 	{
 		Matrix expected({
-			{1, 0, 0}, 
-			{0, 1, 0}, 
+			{1, 0, 0},
+			{0, 1, 0},
 			{0, 0, 1}
 		});
 
@@ -295,9 +295,9 @@ private:
 		});
 
 		Matrix expected({
-			{0.6, -0.4, 0.8}, 
-			{0.7, 0.2, 0.1},
-			{-0.1, 0.4, -0.3}
+			{0.6f, -0.4f, 0.8f},
+			{0.7f, 0.2f, 0.1f},
+			{-0.1f, 0.4f, -0.3f}
 		});
 
 		auto result = a.Inverse();
@@ -324,7 +324,7 @@ private:
 		{
 			a.Inverse();
 		}
-		catch (std::exception& ex)
+		catch (std::exception&)
 		{
 			return;
 		}
@@ -344,7 +344,7 @@ private:
 		{
 			a.Inverse();
 		}
-		catch (std::exception& ex)
+		catch (std::exception&)
 		{
 			return;
 		}
