@@ -13,7 +13,7 @@ inline float Math::GraphicsUtils::Degrees(float radians)
 	return 180.f / Math::GraphicsUtils::PI * radians;
 }
 
-Math::Matrix Math::GraphicsUtils::RotationXY(float angle, int scale)
+Math::Matrix Math::GraphicsUtils::RotationXY(float angle, size_t scale)
 {
 	if (scale < 3)
 	{
@@ -33,7 +33,7 @@ Math::Matrix Math::GraphicsUtils::RotationXY(float angle, int scale)
 	return result;
 }
 
-Math::Matrix Math::GraphicsUtils::RotationYZ(float angle, int scale)
+Math::Matrix Math::GraphicsUtils::RotationYZ(float angle, size_t scale)
 {
 	if (scale < 3)
 	{
@@ -53,7 +53,7 @@ Math::Matrix Math::GraphicsUtils::RotationYZ(float angle, int scale)
 	return result;
 }
 
-Math::Matrix Math::GraphicsUtils::RotationXZ(float angle, int scale)
+Math::Matrix Math::GraphicsUtils::RotationXZ(float angle, size_t scale)
 {
 	if (scale < 3)
 	{

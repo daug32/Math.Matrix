@@ -5,12 +5,12 @@ namespace Math
 	//-------------------------------------------
 	// Contructors
 	//-------------------------------------------
-	Vector3::Vector3( float x, float y, float z )
+	Vector3::Vector3(float x, float y, float z)
 	{
 		m_buffer = { x, y, z };
 	}
 
-	Vector3::Vector3( float value )
+	Vector3::Vector3(float value)
 	{
 		m_buffer = { value, value, value };
 	}
@@ -28,7 +28,7 @@ namespace Math
 		return m_buffer[0];
 	}
 
-	void Vector3::SetX( float x )
+	void Vector3::SetX(float x)
 	{
 		m_buffer[0] = x;
 	}
@@ -38,7 +38,7 @@ namespace Math
 		return m_buffer[1];
 	}
 
-	void Vector3::SetY( float y )
+	void Vector3::SetY(float y)
 	{
 		m_buffer[1] = y;
 	}
@@ -48,7 +48,7 @@ namespace Math
 		return m_buffer[2];
 	}
 
-	void Vector3::SetZ( float z )
+	void Vector3::SetZ(float z)
 	{
 		m_buffer[2] = z;
 	}
@@ -56,35 +56,35 @@ namespace Math
 	//-------------------------------------------
 	// Operators
 	//-------------------------------------------
-	void Vector3::operator+=( const Vector3& v )
+	void Vector3::operator+=(const Vector3& v)
 	{
 		m_buffer[0] += v.GetX();
 		m_buffer[1] += v.GetY();
 		m_buffer[2] += v.GetZ();
 	}
 
-	void Vector3::operator-=( const Vector3& v )
+	void Vector3::operator-=(const Vector3& v)
 	{
 		m_buffer[0] -= v.GetX();
 		m_buffer[1] -= v.GetY();
 		m_buffer[2] -= v.GetZ();
 	}
 
-	void Vector3::operator*=( float v )
+	void Vector3::operator*=(float v)
 	{
 		m_buffer[0] *= v;
 		m_buffer[1] *= v;
 		m_buffer[2] *= v;
 	}
 
-	void Vector3::operator/=( float v )
+	void Vector3::operator/=(float v)
 	{
 		m_buffer[0] /= v;
 		m_buffer[1] /= v;
 		m_buffer[2] /= v;
 	}
 
-	Vector3 Vector3::operator+( const Vector3& a ) const
+	Vector3 Vector3::operator+(const Vector3& a) const
 	{
 		return Vector3(
 			m_buffer[0] + a.GetX(),
@@ -93,7 +93,7 @@ namespace Math
 		);
 	}
 
-	Vector3 Vector3::operator-( const Vector3& a ) const
+	Vector3 Vector3::operator-(const Vector3& a) const
 	{
 		return Vector3(
 			m_buffer[0] - a.GetX(),
@@ -102,7 +102,7 @@ namespace Math
 		);
 	}
 
-	Vector3 Vector3::operator*( float a ) const
+	Vector3 Vector3::operator*(float a) const
 	{
 		return Vector3(
 			m_buffer[0] * a,
@@ -111,7 +111,7 @@ namespace Math
 		);
 	}
 
-	Vector3 Vector3::operator/( float a ) const
+	Vector3 Vector3::operator/(float a) const
 	{
 		return Vector3(
 			m_buffer[0] / a,
@@ -123,12 +123,12 @@ namespace Math
 	//-------------------------------------------
 	// Other 
 	//-------------------------------------------
-	Vector3 Vector3::MeanPosition( const std::vector<Vector3>& arr )
+	Vector3 Vector3::MeanPosition(const std::vector<Vector3>& arr)
 	{
 		Vector3 result;
 
 		size_t size = arr.size();
-		for ( int i = 0; i < size; i++ )
+		for (size_t i = 0; i < size; i++)
 		{
 			result += arr[i];
 		}
@@ -136,7 +136,7 @@ namespace Math
 		return result / size;
 	}
 
-	inline double Vector3::GetSqLength( const Vector3& v )
+	inline double Vector3::GetSqLength(const Vector3& v)
 	{
 		float x = v.GetX();
 		float y = v.GetY();
@@ -145,7 +145,7 @@ namespace Math
 		return x * x + y * y + z * z;
 	}
 
-	inline double Vector3::GetSqDistance( const Vector3& pos1, const Vector3& pos2 )
+	inline double Vector3::GetSqDistance(const Vector3& pos1, const Vector3& pos2)
 	{
 		float xDiff = pos1.GetX() - pos2.GetX();
 		float yDiff = pos1.GetY() - pos2.GetY();
